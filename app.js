@@ -6,6 +6,7 @@ var app = express();
 var port = 3000;
 var swig = require('swig');
 var socketio = require("socket.io");
+var mime = require('mime');
 
 
 var server = app.listen(port, function() {
@@ -36,9 +37,10 @@ app.use(function(req, res, next) {
 app.use('/', routes(io));
 
 app.use(function(req, res, next) {
+  var mimeType = mime.lookup(req.path);
   fs.readFile('./public/' + req.url, function(err, data) {
     if (err) next(err);
-    res.setHeader('Content-Type', 'text/css');
+    res.setHeader('Content-Type', mimeType);
     res.send(data);
   });
 });
