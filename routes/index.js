@@ -8,12 +8,4 @@ router.get('/', function(req, res, next) {
   res.render('index', {title: 'twitter.js', tweets: tweets});
 });
 
-router.use(function(req, res, next) {
-  fs.readFile('./public/' + req.url, function(err, data) {
-    if (err) next(err);
-    res.setHeader('Content-Type', 'text/css');
-    res.send(data);
-  });  
-});
-
 module.exports = router;

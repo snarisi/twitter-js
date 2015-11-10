@@ -1,4 +1,5 @@
 var express = require("express");
+var fs = require('fs');
 var tweetBank = require('./tweetBank');
 var routes = require('./routes/');
 var app = express();
@@ -35,6 +36,14 @@ app.use(function(req, res, next) {
 });
 
 app.use('/', routes);
+
+app.use(function(req, res, next) {
+  fs.readFile('./public/' + req.url, function(err, data) {
+    if (err) next(err);
+    res.setHeader('Content-Type', 'text/css');
+    res.send(data);
+  });  
+});
 
 app.use(function(err, req, res, next) {
   console.error(err);
