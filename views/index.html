@@ -22,10 +22,10 @@
         </form>
         {% endif %}
     </div>
-    <div class="col-md-9">
+    <div id="tweet-list" class="col-md-9">
         <!-- display tweets here -->
         {% for tweet in tweets %}
-        <div class='row'>
+        <div class="row">
             <div class="col-md-1 tweet-heading">
                 <a href="/users/{{tweet.name}}/tweets/{{tweet.id}}"><img src="https://pbs.twimg.com/profile_images/2450268678/olxp11gnt09no2y2wpsh_normal.jpeg"></a>
             </div>

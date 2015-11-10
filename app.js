@@ -7,6 +7,13 @@ var port = 3000;
 var swig = require('swig');
 var socketio = require("socket.io");
 
+
+var server = app.listen(port, function() {
+    console.log("server listening on port " + port);
+});
+
+var io = socketio.listen(server);
+
 swig.setDefaults({ cache: false }); // for in development
 
 // Registers the given template engine callback as ext.
@@ -26,7 +33,7 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.use('/', routes);
+app.use('/', routes(io));
 
 app.use(function(req, res, next) {
   fs.readFile('./public/' + req.url, function(err, data) {
@@ -39,10 +46,3 @@ app.use(function(req, res, next) {
 app.use(function(err, req, res, next) {
   console.error(err);
 });
-
-var server = app.listen(port, function() {
-    console.log("server listening on port " + port);
-});
-
-var io = socketio.listen(server);
-

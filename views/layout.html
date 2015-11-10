@@ -82,8 +82,30 @@
     <script>
     var socket = io.connect();
     socket.on("new_tweet", function(tweet) {
+      var row = document.createElement('div');
+      row.setAttribute('class', 'row');
+      var tweetList = document.getElementById('tweet-list');
+//      var tweetHeading = document.createElement('div').setAttribute('class', 'col-md-1 tweet-heading');
+//      var tweetLink = document.createElement('a').setAttributev('href', "/users/" + tweet.name + '/tweets/' + tweet.id);
+//      var img = document.createElement('img').setAttribute('src', "https://pbs.twimg.com/profile_images/2450268678/olxp11gnt09no2y2wpsh_normal.jpeg");
+//      var tweetBody = document.createElement('div').setAttribute('class', 'tweet-body col-md-8');
+//      var h4 = document.createElement('h4');
+//      var userLink = document.createElement('a').setAttribute('href', '/users/' + tweet.name);
+//      var tweetText = document.createElement('li');
+//      var retweetLink = document.createElement('a').setAttribute('href', '#');
+//      
+//      tweetText.text = tweet.text;
+//      userLink.text = tweet.name;
+      
+      var inner = '<div class="col-md-1 tweet-heading"><a href="/users/' + tweet.name + '/tweets/' + tweet.id + '"><img src="https://pbs.twimg.com/profile_images/2450268678/olxp11gnt09no2y2wpsh_normal.jpeg"></a></div><div class="tweet-body col-md-8"><h4><a href="/users/' + tweet.name + '">' + tweet.name + '</a></h4><li>' + tweet.text + '</li><a href="#">Re-tweet</a></div>';
+      row.innerHTML = inner;
+      tweetList.insertBefore(row, tweetList.firstChild);
+      
+      
+
+      
       console.log(tweet);
-      alert("refreshing..check console");
+      //alert("refreshing..check console");
     });
     </script>
   </body>
