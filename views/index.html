@@ -1,33 +1,41 @@
-{% extends "layout.html" %}
-
-{% block content %}
-  
-  <div class="page-header">
+{% extends "layout.html" %} {% block content %}
+<div class="page-header">
     <h1>{{title}}</h1>
-  </div>
-  <div class="row">
+</div>
+<div class="row">
     <div class="col-md-3">
-      <img src="https://pbs.twimg.com/profile_images/2450268678/olxp11gnt09no2y2wpsh_normal.jpeg"><br>
-      <b>Your Name</b><br>
-      100 followers
+        <img src="https://pbs.twimg.com/profile_images/2450268678/olxp11gnt09no2y2wpsh_normal.jpeg">
+        <br>
+        <b>Your Name</b>
+        <br> 100 followers
+        {% if showForm %}
+        <form action="/submit" method="POST">
+            <div class="form-group">
+                <label for="name_field">Name:</label>
+                <input name="name" value="{{name}}" type="text" id="name_field" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="text_field">Text:</label>
+                <input name="text" type="text" id="text_field" class="form-control" />
+            </div>
+            <input class="btn btn-success" type="submit" value="Submit" />
+        </form>
+        {% endif %}
     </div>
     <div class="col-md-9">
-    
-      <!-- display tweets here -->
-      {% for tweet in tweets %}
-      <div class='row'>
-        <div class="col-md-1 tweet-heading">  
-          <img src="https://pbs.twimg.com/profile_images/2450268678/olxp11gnt09no2y2wpsh_normal.jpeg">
+        <!-- display tweets here -->
+        {% for tweet in tweets %}
+        <div class='row'>
+            <div class="col-md-1 tweet-heading">
+                <a href="/users/{{tweet.name}}/tweets/{{tweet.id}}"><img src="https://pbs.twimg.com/profile_images/2450268678/olxp11gnt09no2y2wpsh_normal.jpeg"></a>
+            </div>
+            <div class="tweet-body col-md-8">
+                <h4><a href="/users/{{tweet.name}}">{{tweet.name}}</a></h4>
+                <li>{{tweet.text}}</li>
+                <a href="#">Re-tweet</a>
+            </div>
         </div>
-        <div class="tweet-body col-md-8">
-          <h4>{{tweet.name}}</h4>
-          <li>{{tweet.text}}</li>
-          <a href="#">Re-tweet</a>
-        </div>
-      </div>
-      {% endfor %}
-      
+        {% endfor %}
     </div>
-  </div>
-    
+</div>
 {% endblock %}

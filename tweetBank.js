@@ -1,9 +1,10 @@
 var _ = require('underscore');
 
 var data = [];
-
+var id = 1;
 var add = function(name, text) {
-  data.push({name: name, text: text});
+  data.unshift({name: name, text: text, id:id});
+  id++
 };
 
 var list = function() {
@@ -15,9 +16,6 @@ var find = function(properties) {
 };
 
 module.exports = {add: add, list: list, find: find};
-
-
-
 
 
 var randArrayEl = function(arr) {
@@ -40,6 +38,6 @@ for(var i=0; i<10; i++) {
 }
 
 add('Testuser', 'Hey');
-add('Testuser', 'Yo');
-add('Testuser', 'Hi');
-add('Testuser', 'Hello');
+add('Test two', 'Yo');
+add('Some guy', 'Hi');
+add('ANother guy', 'Hello');

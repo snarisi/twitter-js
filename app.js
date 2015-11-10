@@ -5,6 +5,7 @@ var routes = require('./routes/');
 var app = express();
 var port = 3000;
 var swig = require('swig');
+var socketio = require("socket.io");
 
 swig.setDefaults({ cache: false }); // for in development
 
@@ -20,16 +21,6 @@ app.set('view engine', 'html');
 //sets directory for views
 app.set('views', __dirname + '/views');
 
-//
-//var people = [{name:"Full"},{name:"Stacker"},{name:"Son"}];
-//
-//app.get('/', function(req, res, next) {
-//    res.render("index", {title:"Hall of Fame", people : people});
-//});
-//
-
-
-
 app.use(function(req, res, next) {
     console.log(req.method, req.url);
     next();
@@ -42,13 +33,16 @@ app.use(function(req, res, next) {
     if (err) next(err);
     res.setHeader('Content-Type', 'text/css');
     res.send(data);
-  });  
+  });
 });
 
 app.use(function(err, req, res, next) {
   console.error(err);
 });
 
-app.listen(port, function() {
+var server = app.listen(port, function() {
     console.log("server listening on port " + port);
 });
+
+var io = socketio.listen(server);
+
