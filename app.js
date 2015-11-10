@@ -1,4 +1,6 @@
 var express = require("express");
+var tweetBank = require('./tweetBank');
+var routes = require('./routes/');
 var app = express();
 var port = 3000;
 var swig = require('swig');
@@ -17,19 +19,26 @@ app.set('view engine', 'html');
 //sets directory for views
 app.set('views', __dirname + '/views');
 
+//
+//var people = [{name:"Full"},{name:"Stacker"},{name:"Son"}];
+//
+//app.get('/', function(req, res, next) {
+//    res.render("index", {title:"Hall of Fame", people : people});
+//});
+//
+
+
 
 app.use(function(req, res, next) {
-    console.log("response obj: ", res);
     console.log(req.method, req.url);
     next();
 });
 
-var people = [{name:"Full"},{name:"Stacker"},{name:"Son"}];
+app.use('/', routes);
 
-app.get('/', function(req, res, next) {
-    res.render("index", {title:"Hall of Fame", people : people});
+app.use(function(err, req, res, next) {
+  console.error(err);
 });
-
 
 app.listen(port, function() {
     console.log("server listening on port " + port);
